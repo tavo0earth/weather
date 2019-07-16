@@ -1,9 +1,10 @@
 import React from 'react';
 
-function App() {
-  return (
-      <div>
-        <div id="signUp">
+class App extends React.Component {
+  render() {
+    return (
+        <div>
+          <div id="signUp">
             <form>
               <h1> Зарегестрироваться </h1>
               <p>
@@ -30,27 +31,28 @@ function App() {
                 <input type="submit" value="Sign up"/>
               </p>
             </form>
-        </div>
+          </div>
 
-        <div id="login">
-          <form>
-            <h1>Авторизоваться</h1>
-            <p>
-              <label className="userName">Ваш email или Имя Пользователя</label>
-              <input id="userName" name="username" required="required" type="text"
-                     placeholder="myusername or mymail@mail.com"/>
-            </p>
-            <p>
-              <label className="youPassword">Ваш пароль</label>
-              <input id="password" name="password" required="required" type="password" placeholder="password"/>
-            </p>
-            <p className="login_button">
-              <input type="submit" value="Login"/>
-            </p>
-          </form>
+          <div id="login">
+            <form>
+              <h1>Авторизоваться</h1>
+              <p>
+                <label className="userName">Ваш email или Имя Пользователя</label>
+                <input id="userName" name="username" required="required" type="text"
+                       placeholder="myusername or mymail@mail.com"/>
+              </p>
+              <p>
+                <label className="youPassword">Ваш пароль</label>
+                <input id="password" name="password" required="required" type="password" placeholder="password"/>
+              </p>
+              <p className="login_button">
+                <input type="submit" value="Login"/>
+              </p>
+            </form>
+          </div>
         </div>
-      </div>
-  );
+    );
+  }
 }
 
 export default App;
