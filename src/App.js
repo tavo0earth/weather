@@ -2,6 +2,7 @@ import React from 'react';
 import SignUp from './auth/SignUp';
 import Login from './auth/Login';
 
+
 class App extends React.Component {
     render() {
         return (
@@ -12,5 +13,10 @@ class App extends React.Component {
         )
     }
 }
+
+
+
+
+
 
 export default App;
