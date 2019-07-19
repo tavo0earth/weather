@@ -9,22 +9,27 @@ import Container from '@material-ui/core/Container';
 const useStyles = makeStyles(theme => ({
     '@global': {
         body: {
-            backgroundColor: theme.palette.common.white,
+            backgroundColor: 'grey',
         },
-        signUpBlock: {
-            marginTop: theme.spacing(10),
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-        },
-        form: {
-            width: '100%',
-            marginTop: theme.spacing(1),
-        },
-        submit: {
-            margin: theme.spacing(3, 0, 2),
-        },
-    }
+    },
+    signUpBlock: {
+        width: '100%',
+        borderRadius: '10px',
+        padding: theme.spacing(5, 3, 5),
+        backgroundColor: 'white',
+        marginTop: theme.spacing(10),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    form: {
+        width: '90%',
+        marginTop: theme.spacing(1),
+    },
+    submit: {
+
+        margin: theme.spacing(3, 0, 0),
+    },
 }));
 
 
