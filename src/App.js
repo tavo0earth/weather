@@ -1,7 +1,7 @@
 import React from 'react';
 import SignUp from './auth/SignUp';
 import Login from './auth/Login';
-import WeatherSearch from './auth/WeatherSearch';
+import WeatherSearch from './weather/WeatherSearch';
 
 const API_KEY = "8d445e202c88e2e73c06fbe95bc00699";
 
