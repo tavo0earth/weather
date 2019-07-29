@@ -1,57 +1,30 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import {makeStyles} from "@material-ui/core";
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
-
-const useStyles = makeStyles(theme => ({
-    '@global': {
-        body: {
-            backgroundColor: 'grey',
-        },
-    },
-    signUpBlock: {
-        width: '100%',
-        borderRadius: '10px',
-        padding: theme.spacing(5, 3, 5),
-        backgroundColor: 'white',
-        marginTop: theme.spacing(10),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
-    form: {
-        width: '90%',
-        marginTop: theme.spacing(1),
-    },
-    submit: {
-        margin: theme.spacing(3, 0, 0),
-    },
-}));
-
+import './SignUp.css';
 
 export default function SignUp() {
-    const classes = useStyles();
 
     return (
         <Container maxWidth="xs">
             <CssBaseline />
-            <div className={classes.signUpBlock}>
+            <div className="signUpBlock">
                     <Typography component="h1" variant="h3">
                     Регистрация
                     </Typography>
-                <form className={classes.form}>
+                <form className="form">
                     <TextField
                         variant="outlined"
                         margin="normal"
                         required
                         fullWidth
-                        id="userName"
+                        id="newName"
                         label="Ваше Имя"
-                        name="userName"
-                        autoComplete="userName"
+                        name="newName"
+                        autoComplete="newName"
                     />
                     <TextField
                         variant="outlined"
@@ -90,7 +63,7 @@ export default function SignUp() {
                         fullWidth
                         variant="contained"
                         color="primary"
-                        className={classes.submit}
+                        className="submit"
                     >
                         Sign In
                     </Button>
