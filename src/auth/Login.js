@@ -4,6 +4,8 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
+import Box from '@material-ui/core/Box';
+import Link from '@material-ui/core/Link';
 import './Login.css';
 
 export default function Login() {
@@ -36,16 +38,20 @@ export default function Login() {
                         name="password"
                         autoComplete="password"
                     />
+                    <Box mt={2}>
                     <Button
                         type="submit"
                         fullWidth
                         variant="contained"
                         color="primary"
-                        className="submit"
                     >
                         Login
                     </Button>
+                    </Box>
                 </form>
+                <div>
+                    <Link to="/SignUp">>Нету аккаунта? Зарегестрироваться!</Link>
+                </div>
             </div>
         </Container>
         )

@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
+import Box from '@material-ui/core/Box';
 import './SignUp.css';
 
 export default function SignUp() {
@@ -58,15 +59,16 @@ export default function SignUp() {
                         id="passwordСonfirm"
                         autoComplete="current-password"
                     />
+                    <Box mt={2}>
                     <Button
                         type="submit"
                         fullWidth
                         variant="contained"
                         color="primary"
-                        className="submit"
                     >
                         Sign In
                     </Button>
+                    </Box>
                 </form>
             </div>
         </Container>

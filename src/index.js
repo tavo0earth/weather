@@ -1,8 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import Login from './auth/Login';
+import { Router, Route, Switch } from 'react-router';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(
+    <Router>
+        <Switch>
+        <Route path="/" component={Login} />
+    </Switch>
+    </Router>,
+    document.getElementById('root')
+);
 
 serviceWorker.unregister();

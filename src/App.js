@@ -8,12 +8,10 @@ class App extends React.Component {
 
     render() {
         return (
-            <div className="body">
+            <div>
                 <SignUp/>
                 <Login/>
-                <WeatherSearch
-
-                />
+                <WeatherSearch/>
             </div>
         )
     }

@@ -10,6 +10,7 @@ import Collapse from '@material-ui/core/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import List from '@material-ui/core/List';
+import Box from '@material-ui/core/Box';
 import './WeatherSearch.css';
 
 const API_KEY = "8d445e202c88e2e73c06fbe95bc00699";
@@ -20,18 +21,23 @@ class WeatherSearch extends React.Component {
         temp: undefined,
         city: undefined,
         country: undefined,
-        sunset: undefined
-    }
+        sunset: undefined,
+        open: false
+    };
+
+    handleClick = () => {
+        this.setState({open: !this.state.open});
+    };
 
     getWeather = async (e) => {
         e.preventDefault();
         const city = e.target.elements.city.value;
         const api_url = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`);
         const data = await api_url.json();
-        console.log(data)
+        console.log(data);
 
         const sunset = data.sys.sunset;
-        const date = new Date;
+        const date = new Date();
         date.setTime(sunset);
         const sunset_date = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 
@@ -41,15 +47,9 @@ class WeatherSearch extends React.Component {
             country: data.sys.country,
             sunset: sunset_date
         });
-    }
+    };
 
     render() {
-
-        const [open, setOpen] = React.useState(true);
-
-        const handleClick = () => {
-            setOpen(!open);
-        }
 
         return (
             <Container maxWidth="xs">
@@ -69,31 +69,32 @@ class WeatherSearch extends React.Component {
                             name="city"
                             autoComplete="city"
                         />
+                        <Box mt={2}>
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
-                            color="primary"
-                            className="submit">
+                            color="primary">
                             Search
                         </Button>
+                        </Box>
                     </form>
                     <div className="list">
-                        {this.city &&
+                        {this.state.city &&
                         <List>
-                            <ListItem button onClick={handleClick}>
+                            <ListItem button onClick={this.handleClick}>
                                 <ListItemText>
-                                    Город: {this.city}
+                                    Город: {this.state.city}
                                 </ListItemText>
-                                {open ? <ExpandLess/> : <ExpandMore/>}
+                                {this.state.open ? <ExpandLess/> : <ExpandMore/>}
                             </ListItem>
-                            <Collapse in={!open} timeout="auto" unmountOnExit>
+                            <Collapse in={!!this.state.open} timeout="auto" unmountOnExit>
                                 <List component="div" disablePadding>
                                     <ListItem button>
                                         <ListItemText>
-                                            <p>Местоположение: {this.city}, {this.country}</p>
-                                            <p>Температура: {this.temp}</p>
-                                            <p>Заход солнца: {this.sunset}</p>
+                                            <p>Местоположение: {this.state.city}, {this.state.country}</p>
+                                            <p>Температура: {this.state.temp}</p>
+                                            <p>Заход солнца: {this.state.sunset}</p>
                                         </ListItemText>
                                     </ListItem>
                                 </List>
