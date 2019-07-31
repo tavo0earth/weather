@@ -1,15 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Login from './auth/Login';
-import { Router, Route, Switch } from 'react-router';
+import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-    <Router>
-        <Switch>
-        <Route path="/" component={Login} />
-    </Switch>
-    </Router>,
+    <App/>,
     document.getElementById('root')
 );
 

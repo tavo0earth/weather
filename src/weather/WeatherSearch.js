@@ -15,13 +15,15 @@ import './WeatherSearch.css';
 
 const API_KEY = "8d445e202c88e2e73c06fbe95bc00699";
 
+
+
 class WeatherSearch extends React.Component {
 
     state = {
-        temp: undefined,
-        city: undefined,
-        country: undefined,
-        sunset: undefined,
+        temp: null,
+        city: null,
+        country: null,
+        sunset: null,
         open: false
     };
 
@@ -47,6 +49,18 @@ class WeatherSearch extends React.Component {
             country: data.sys.country,
             sunset: sunset_date
         });
+
+        const cities = {
+            temp: data.main.temp,
+            city: data.name,
+            country: data.sys.country,
+            sunset: sunset_date
+        };
+        const serialObjCities = JSON.stringify(cities);
+
+        localStorage.setItem('city', serialObjCities);
+        //document.querySelector('.saveCity').innerHTML = localStorage.getItem('city')
+
     };
 
     render() {
@@ -102,6 +116,8 @@ class WeatherSearch extends React.Component {
                         </List>
                         }
                     </div>
+                   <div className="saveCity">
+                   </div>
                 </div>
             </Container>
         );
@@ -109,4 +125,3 @@ class WeatherSearch extends React.Component {
 }
 
 export default WeatherSearch
-

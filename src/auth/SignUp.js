@@ -5,9 +5,12 @@ import TextField from '@material-ui/core/TextField';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
+import { Link } from 'react-router-dom';
 import './SignUp.css';
 
-export default function SignUp() {
+class SignUp extends React.Component {
+
+    render() {
 
     return (
         <Container maxWidth="xs">
@@ -60,6 +63,7 @@ export default function SignUp() {
                         autoComplete="current-password"
                     />
                     <Box mt={2}>
+                        <Link to={'/WeatherSearch'}>
                     <Button
                         type="submit"
                         fullWidth
@@ -68,9 +72,13 @@ export default function SignUp() {
                     >
                         Sign In
                     </Button>
+                        </Link>
                     </Box>
                 </form>
             </div>
         </Container>
         )
     }
+}
+
+export default SignUp
