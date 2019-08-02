@@ -50,17 +50,10 @@ class WeatherSearch extends React.Component {
             sunset: sunset_date
         });
 
-        const cities = {
-            temp: data.main.temp,
-            city: data.name,
-            country: data.sys.country,
-            sunset: sunset_date
-        };
-        const serialObjCities = JSON.stringify(cities);
-
-        localStorage.setItem('city', serialObjCities);
-        //document.querySelector('.saveCity').innerHTML = localStorage.getItem('city')
-
+        localStorage.setItem('cities', data.name);
+        localStorage.setItem('countries', data.sys.country);
+        localStorage.setItem('temps', data.main.temp);
+        localStorage.setItem('sunsets', sunset_date);
     };
 
     render() {
@@ -98,7 +91,7 @@ class WeatherSearch extends React.Component {
                         <List>
                             <ListItem button onClick={this.handleClick}>
                                 <ListItemText>
-                                    Город: {this.state.city}
+                                    Город: {localStorage.getItem('cities')}
                                 </ListItemText>
                                 {this.state.open ? <ExpandLess/> : <ExpandMore/>}
                             </ListItem>
@@ -106,9 +99,9 @@ class WeatherSearch extends React.Component {
                                 <List component="div" disablePadding>
                                     <ListItem button>
                                         <ListItemText>
-                                            <p>Местоположение: {this.state.city}, {this.state.country}</p>
-                                            <p>Температура: {this.state.temp}</p>
-                                            <p>Заход солнца: {this.state.sunset}</p>
+                                            <p>Местоположение: {localStorage.getItem('cities')}, {localStorage.getItem('countries')}</p>
+                                            <p>Температура: {localStorage.getItem('temps')}</p>
+                                            <p>Заход солнца: {localStorage.getItem('sunsets')}</p>
                                         </ListItemText>
                                     </ListItem>
                                 </List>
