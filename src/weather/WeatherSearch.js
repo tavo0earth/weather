@@ -50,10 +50,19 @@ class WeatherSearch extends React.Component {
             sunset: sunset_date
         });
 
-        localStorage.setItem('cities', data.name);
-        localStorage.setItem('countries', data.sys.country);
-        localStorage.setItem('temps', data.main.temp);
-        localStorage.setItem('sunsets', sunset_date);
+        const cities = {
+            'Температура': data.main.temp,
+            'Город': data.name,
+            'Страна': data.sys.country,
+            'Заход солнца': sunset_date
+        };
+
+        const citiesObj = JSON.stringify(cities);
+        localStorage.setItem('cities', citiesObj);
+
+        const newCities = JSON.parse(localStorage.getItem('cities'));
+        console.log(newCities['country']);
+
     };
 
     render() {
@@ -99,9 +108,9 @@ class WeatherSearch extends React.Component {
                                 <List component="div" disablePadding>
                                     <ListItem button>
                                         <ListItemText>
-                                            <p>Местоположение: {localStorage.getItem('cities')}, {localStorage.getItem('countries')}</p>
-                                            <p>Температура: {localStorage.getItem('temps')}</p>
-                                            <p>Заход солнца: {localStorage.getItem('sunsets')}</p>
+                                            <p>Местоположение: {this.newCities}, {this.newCities}</p>
+                                            <p>Температура: {this.newCities}</p>
+                                            <p>Заход солнца: {this.newCities}</p>
                                         </ListItemText>
                                     </ListItem>
                                 </List>
@@ -110,6 +119,7 @@ class WeatherSearch extends React.Component {
                         }
                     </div>
                    <div className="saveCity">
+
                    </div>
                 </div>
             </Container>
