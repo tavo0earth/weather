@@ -15,8 +15,6 @@ import './WeatherSearch.css';
 
 const API_KEY = "8d445e202c88e2e73c06fbe95bc00699";
 
-
-
 class WeatherSearch extends React.Component {
 
     state = {
@@ -24,26 +22,25 @@ class WeatherSearch extends React.Component {
         city: null,
         country: null,
         sunset: null,
-        open: false,
+        isOpened: false,
         cities: [],
     };
 
     // при маунте элемента записываем данные из локал стореджа в стейт
     componentDidMount() {
-        const cities = JSON.parse(localStorage.getItem('cities'));
+        const cities = JSON.parse(localStorage.getItem('cities')) || [];
         this.setState({cities});
     }
 
-    handleClick = () => {
-        this.setState({open: !this.state.open});
-    };
+    toggleState() {
+        this.setState({ isOpened: !this.state.isOpened });
+    }
 
     getWeather = async (e) => {
         e.preventDefault();
         const city = e.target.elements.city.value;
         const api_url = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`);
         const data = await api_url.json();
-        console.log(data);
 
         const sunset = data.sys.sunset;
         const date = new Date();
@@ -51,10 +48,10 @@ class WeatherSearch extends React.Component {
         const sunset_date = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 
         // достаём из локал стореджа то что сохранили и преобразуем это в массив
-        const localStorageCities = JSON.parse(localStorage.getItem('cities'));
+        const localStorageCities = JSON.parse(localStorage.getItem('cities'))  || [];
         const cities = [...localStorageCities, {
-            temperature: data.main.temp,
-            name: data.name,
+            temp: data.main.temp,
+            city: data.name,
             country: data.sys.country,
             sunset: sunset_date
         }];
@@ -69,21 +66,34 @@ class WeatherSearch extends React.Component {
 
         const citiesObj = JSON.stringify(cities);
         localStorage.setItem('cities', citiesObj);
-
-        const newCities = JSON.parse(localStorage.getItem('cities'));
-        console.log(newCities['country']);
-
     };
 
     setCityFromLocalStorage = (city) => {
         //TODO: add logic for selecting cities, that are already in local storage
-        console.log(city);
-    };
+
+        let dropdownText;
+        if (this.state.isOpened) {
+            dropdownText =
+                <div>
+                    <p>Местоположение: {this.state.city}, {this.state.country}</p>
+                    <p>Температура: {this.state.temp}</p>
+                    <p>Заход солнца: {this.state.sunset}</p>
+                </div>;
+        }
+
+        return (
+            <div onClick={this.toggleState.bind(this)}>
+                {this.renderCities()}
+                {dropdownText}
+            </div>
+
+        )
+    }
 
     renderCities = () => {
         // рисуем список городов
         return this.state.cities.map((city, index) => (
-          <Button key={index} onClick={() => this.setCityFromLocalStorage(city)}>{city.name}</Button>
+          <Button key={index} onClick={() => this.setCityFromLocalStorage(city)}>{city.city}</Button>
         ))
     };
 
@@ -117,33 +127,7 @@ class WeatherSearch extends React.Component {
                         </Button>
                         </Box>
                     </form>
-                    <div className="list">
-                        {this.state.city &&
-                        <List>
-                            <ListItem button onClick={this.handleClick}>
-                                <ListItemText>
-                                    Город: {this.state.city}
-                                </ListItemText>
-                                {this.state.open ? <ExpandLess/> : <ExpandMore/>}
-                            </ListItem>
-                            <Collapse in={!!this.state.open} timeout="auto" unmountOnExit>
-                                <List component="div" disablePadding>
-                                    <ListItem button>
-                                        <ListItemText>
-                                            <p>Местоположение: {this.state.city}, {this.state.country}</p>
-                                            <p>Температура: {this.state.temp}</p>
-                                            <p>Заход солнца: {this.state.sunset}</p>
-                                        </ListItemText>
-                                    </ListItem>
-                                </List>
-                            </Collapse>
-                        </List>
-                        }
-                    </div>
-                   <div className="saveCity">
-
-                   </div>
-                    {this.renderCities()}
+                        {this.setCityFromLocalStorage()}
                 </div>
             </Container>
         );
