@@ -22,7 +22,7 @@ class WeatherSearch extends React.Component {
         city: null,
         country: null,
         sunset: null,
-        isOpened: false,
+        open: false,
         cities: [],
     };
 
@@ -32,9 +32,9 @@ class WeatherSearch extends React.Component {
         this.setState({cities});
     }
 
-    toggleState() {
-        this.setState({ isOpened: !this.state.isOpened });
-    }
+    handleClick = () => {
+        this.setState({open: !this.state.open});
+    };
 
     getWeather = async (e) => {
         e.preventDefault();
@@ -70,31 +70,22 @@ class WeatherSearch extends React.Component {
 
     setCityFromLocalStorage = (city) => {
         //TODO: add logic for selecting cities, that are already in local storage
+        console.log(city);
 
-        let dropdownText;
-        if (this.state.isOpened) {
-            dropdownText =
-                <div>
-                    <p>Местоположение: {this.state.city}, {this.state.country}</p>
-                    <p>Температура: {this.state.temp}</p>
-                    <p>Заход солнца: {this.state.sunset}</p>
-                </div>;
-        }
 
+        console.log(city.temp);
         return (
-            <div onClick={this.toggleState.bind(this)}>
-                {this.renderCities()}
-                {dropdownText}
-            </div>
+            <div> {city.temp} </div>
+        );
 
-        )
-    }
+    };
 
     renderCities = () => {
         // рисуем список городов
         return this.state.cities.map((city, index) => (
           <Button key={index} onClick={() => this.setCityFromLocalStorage(city)}>{city.city}</Button>
         ))
+
     };
 
     render() {
@@ -127,7 +118,31 @@ class WeatherSearch extends React.Component {
                         </Button>
                         </Box>
                     </form>
-                        {this.setCityFromLocalStorage()}
+                    <div className="list">
+                        {this.state.city &&
+                        <List>
+                            <ListItem button onClick={this.handleClick}>
+                                <ListItemText>
+                                    Город: {this.state.city}
+                                </ListItemText>
+                                {this.state.open ? <ExpandLess/> : <ExpandMore/>}
+                            </ListItem>
+                            <Collapse in={this.state.open} timeout="auto" unmountOnExit>
+                                <List component="div" disablePadding>
+                                    <ListItem button>
+                                        <ListItemText>
+                                            <p>Местоположение: {this.state.city}, {this.state.country}</p>
+                                            <p>Температура: {this.state.temp}</p>
+                                            <p>Заход солнца: {this.state.sunset}</p>
+                                        </ListItemText>
+                                    </ListItem>
+                                </List>
+                            </Collapse>
+                        </List>
+                        }
+                    </div>
+                    {this.renderCities()}
+                    {this.setCityFromLocalStorage()}
                 </div>
             </Container>
         );
