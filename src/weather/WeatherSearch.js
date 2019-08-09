@@ -61,30 +61,30 @@ class WeatherSearch extends React.Component {
             city: data.name,
             country: data.sys.country,
             sunset: sunset_date,
-            cities
+            cities,
+            open: true
         });
 
         const citiesObj = JSON.stringify(cities);
         localStorage.setItem('cities', citiesObj);
     };
 
-    setCityFromLocalStorage = (city) => {
-        //TODO: add logic for selecting cities, that are already in local storage
-        console.log(city);
-
-
-        console.log(city.temp);
-        return (
-            <div> {city.temp} </div>
-        );
-
+    setCityFromLocalStorage = ({temp, city, country, sunset}) => {
+        this.setState({
+            temp,
+            city,
+            country,
+            sunset,
+            open: true,
+        });
     };
 
     renderCities = () => {
         // рисуем список городов
-        return this.state.cities.map((city, index) => (
-          <Button key={index} onClick={() => this.setCityFromLocalStorage(city)}>{city.city}</Button>
-        ))
+        return this.state.cities.map((cityData, index) => (
+              <Button key={index} onClick={() => this.setCityFromLocalStorage(cityData)}>{cityData.city}</Button>
+            )
+        )
 
     };
 
@@ -142,7 +142,6 @@ class WeatherSearch extends React.Component {
                         }
                     </div>
                     {this.renderCities()}
-                    {this.setCityFromLocalStorage()}
                 </div>
             </Container>
         );
